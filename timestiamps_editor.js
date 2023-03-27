@@ -29,7 +29,8 @@ const minutesToHours = (minutes) => minutes / 60;
 const addMinutes = (minutes, amount) => minutes + amount;
 
 function convertTimestamps(digits, amount) {  
-    debugger      
+        amount = Number(amount);
+      
         if (!hasHours(digits)) {
             digits.unshift(['00']);
         };
@@ -67,7 +68,7 @@ function timeStamps(timestampsInput) {
     return timestamps
 }
 
-function convertText(text){
+function convertText(text, amount){
     let timestamps = timeStamps(text);
     let convertedTimeStamps = timestamps.map((line) => {
         // check if line is empty or has no digits
@@ -76,7 +77,7 @@ function convertText(text){
         }
 
         let digits = getDigits(line);
-        let convertedTimeStamp = convertTimestamps(digits, -1);
+        let convertedTimeStamp = convertTimestamps(digits, amount);
 
         return convertedTimeStamp + line.substring(digits[digits.length-1].index + 2);
     });
@@ -85,20 +86,6 @@ function convertText(text){
 }
 
 x = `
-00:00 المقدمة
-01:05 من هو أحمد علي؟ 🤔
-06:10 كيف وصل المهندس احمد علي لمايكروسوفت في البداية؟ 🎁
-12:20 ما هي التحديات التي تواجه رواد المنطقة للعمل في الشركات الكبرى؟ 🏦
-18:05 ما هي طرق التجهيز للعمل في الشركات الكبرى؟  🎯
-30:20 ما هو الفرق بين العمل في شركة محلية أو ناشئة وشركة كبرى؟ ⚖️
-37:10 أهمية العمر في التوظيف واللآراء السياسية.
-40:05 أهمية حل المشكلات في المقابلات الوظيفية.
-41:15 هل من شهادات تنصح بها؟ 
-43:15 هل المشاركة في المسابقات والمؤتمرات يزيد الفرصة؟ 
-44:55 هل تشعر بالضغط النفسي وتعمل لساعات إضافية؟
-46:02 ما هي نصائحكم للشباب العربي؟🌍
-47:23 هل تحفز الشباب العربي على السعي بإطلاق المشاريع الخاصة بهم؟✨
-50:10 هل من مصادر للتعلم باللغة الإنكليزية و باللغة العربية؟  🌱
-53:39 ختام الحلقة`
+`
 
 console.log(convertText(x, -1).join('\n'))
