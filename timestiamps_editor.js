@@ -28,7 +28,7 @@ const minutesToHours = (minutes) => minutes / 60;
 // add amount to minutes
 const addMinutes = (minutes, amount) => minutes + amount;
 
-function convertTimestamps(digits, amount) {  
+function convertTimestamps(digits, amount, secondsInput) {  
         amount = Number(amount);
       
         if (!hasHours(digits)) {
@@ -38,7 +38,7 @@ function convertTimestamps(digits, amount) {
 
         let hours = getHours(digits),
             minutes = getMinutes(digits),
-            seconds = getSeconds(digits);
+            seconds = getSeconds(digits) + Number(secondsInput);
 
         hours = hoursToMinutes(hours);
         minutes = addHoursAndMinutes(hours, minutes);
@@ -58,6 +58,21 @@ function convertTimestamps(digits, amount) {
             hours = 0;
         }
 
+        if (seconds >= 60) {
+            minutesWithAmount = minutesWithAmount + parseInt(seconds / 60);
+            seconds = seconds % 60;
+        }
+        
+        if (minutesWithAmount <= 0 && seconds <= 0) {
+            seconds = 0;
+        }
+
+        if (seconds < 0) {
+            debugger
+            minutesWithAmount = minutesWithAmount + parseInt(seconds / 60);
+            seconds = 60 + (seconds % 60);
+        }
+
         return `${(hours + '').padStart(2,'0')}:${(minutesWithAmount + '').padStart(2,'0')}:${(seconds + '').padStart(2,'0')}`;
 }
 
@@ -68,7 +83,7 @@ function timeStamps(timestampsInput) {
     return timestamps
 }
 
-function convertText(text, amount){
+function convertText(text, amount, seconds){
     let timestamps = timeStamps(text);
     let convertedTimeStamps = timestamps.map((line) => {
         // check if line is empty or has no digits
@@ -77,7 +92,7 @@ function convertText(text, amount){
         }
 
         let digits = getDigits(line);
-        let convertedTimeStamp = convertTimestamps(digits, amount);
+        let convertedTimeStamp = convertTimestamps(digits, amount, seconds);
 
         return convertedTimeStamp + line.substring(digits[digits.length-1].index + 2);
     });

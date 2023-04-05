@@ -3,8 +3,10 @@ function convert() {
     let timestampsInput = document.getElementById('input').value;
     // get the amount to add
     let amount = document.getElementById('amount').value;
+    // get the seconds 
+    let seconds = document.getElementById('seconds').value;
     // get the result
-    let result = convertText(timestampsInput, amount).join('\n');
+    let result = convertText(timestampsInput, amount, seconds).join('\n');
     // print the result on the output
     document.getElementById('output').value = result;
 }
