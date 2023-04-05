@@ -9,7 +9,8 @@
 </head>
 
 <body>
-    <input type="text" id="sentence">
+    <textarea name="array" id="sentence" cols="30" rows="10"></textarea>
+
     <!--simple text input -->
     <textarea name="array" id="lookup_table_input" cols="30" rows="10"></textarea>
     <button id="translate_button"> Translate</button>
@@ -18,7 +19,7 @@
 <script>
     function translate(sentenceVar) {
         // get the sentence from the input
-        sentenceVar= sentenceVar.split(",").map((item) => item.toLowerCase().trim());
+        sentenceVar = sentenceVar.split(",").map((item) => item.toLowerCase().trim());
         // get the lookup table from the textarea
         let lookup_table = document.getElementById("lookup_table_input").value.split("\n").join(",").split(",");
         lookup_table = lookup_table.map((item) => item.toLowerCase().trim());
@@ -37,7 +38,9 @@
 
     function handleTranslate(sentence) {
         let sentenceInput = document.getElementById("sentence").value;
-        document.querySelector(".output").innerHTML = translate(sentenceInput);
+        sentence.split("\n").forEach((item) => {
+            document.querySelector(".output").innerHTML += translate(sentenceInput) + "<br>";
+        });
     }
     // display the sentence
     // add event listener to the translate button
