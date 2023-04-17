@@ -59,7 +59,7 @@ function convertTimestamps(digits, amount, secondsInput) {
         }
 
         if (seconds >= 60) {
-            minutesWithAmount = minutesWithAmount + parseInt(seconds / 60);
+            minutesWithAmount = minutesWithAmount + Math.ceil(Math.abs(seconds / 60));
             seconds = seconds % 60;
         }
         
@@ -68,8 +68,7 @@ function convertTimestamps(digits, amount, secondsInput) {
         }
 
         if (seconds < 0) {
-            debugger
-            minutesWithAmount = minutesWithAmount + parseInt(seconds / 60);
+            minutesWithAmount = minutesWithAmount - Math.ceil(Math.abs(seconds / 60));
             seconds = 60 + (seconds % 60);
         }
 
